@@ -1,4 +1,3 @@
-let start: number;
 //  Python3
 //  Movement test of direction and speed
 //  Movement functions
@@ -49,15 +48,21 @@ function timed_back(spd: number = 50, sec: number = 2.5): any[] {
 
 //  Initialise communication between Microbit and XGO
 xgo.init_xgo_serial(SerialPin.P14, SerialPin.P13)
+let start = 0
+let ready = ""
 while (true) {
-    //  Show ready at power on
-    basic.showIcon(IconNames.Happy)
-    //  Microbit program running
-    basic.pause(1000)
-    if (start == 0) {
-        xgo.execution_action(xgo.action_enum.Sit_down)
-        //  XGO connection successful
-        start = 1
+    //  Show when ready
+    ready = xgo.get_version()
+    if (ready != "") {
+        basic.showIcon(IconNames.Happy)
+        //  Microbit program running
+        basic.pause(1000)
+        if (start == 0) {
+            xgo.execution_action(xgo.action_enum.Sit_down)
+            //  XGO connection successful
+            start = 1
+        }
+        
     }
     
     //  Test sequence on logo touch
@@ -65,12 +70,11 @@ while (true) {
         move_stop()
         //  speed test
         for (let test of [16, 50, 90]) {
-            // xgo.move_xgo(xgo.speed_enum.test)
             timed_forward(test)
             timed_back(test)
         }
         turn_left(5)
-        turn_right(6)
+        turn_right(5)
         move_stop()
     }
     

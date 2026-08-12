@@ -39,24 +39,27 @@ def timed_back(spd=50, sec=2.5):
 
 # Initialise communication between Microbit and XGO
 xgo.init_xgo_serial(SerialPin.P14, SerialPin.P13)
+start = 0
+ready = ""
 
 while True:
-    # Show ready at power on
-    basic.show_icon(IconNames.HAPPY) # Microbit program running
-    basic.pause(1000)
-    if start ==0:
-        xgo.execution_action(xgo.action_enum.Sit_down) # XGO connection successful
-        start = 1
+    # Show when ready
+    ready = xgo.get_version()
+    if ready != "":
+        basic.show_icon(IconNames.HAPPY) # Microbit program running
+        basic.pause(1000)
+        if start ==0:
+            xgo.execution_action(xgo.action_enum.Sit_down) # XGO connection successful
+            start = 1
 
     # Test sequence on logo touch
     if input.logo_is_pressed():
         move_stop()
         # speed test
         for test in (16, 50, 90): 
-            #xgo.move_xgo(xgo.speed_enum.test)
             timed_forward(test)
             timed_back(test)
         turn_left(5)
-        turn_right(6)
+        turn_right(5)
         move_stop()
     
