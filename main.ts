@@ -80,7 +80,7 @@ while (true) {
     }
     
     //  Left hand square
-    input.onButtonPressed(Button.A, function left_square(sec: number = 3): any[] {
+    input.onButtonPressed(Button.B, function left_square(sec: number = 3.5): any[] {
         for (let i = 0; i < 4; i++) {
             timed_forward()
             turn_left(sec)
@@ -89,7 +89,7 @@ while (true) {
         return []
     })
     //  Right hand square
-    input.onButtonPressed(Button.B, function right_square(sec: number = 3): any[] {
+    input.onButtonPressed(Button.A, function right_square(sec: number = 3): any[] {
         for (let i = 0; i < 4; i++) {
             timed_forward()
             turn_right(sec)

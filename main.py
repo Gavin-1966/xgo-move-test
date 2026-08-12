@@ -37,7 +37,7 @@ def timed_back(spd=50, sec=2.5):
     move_stop()
     return()
 
-def left_square(sec=3):
+def left_square(sec=3.5):
     for i in range(4):
         timed_forward()
         turn_left(sec)
@@ -79,10 +79,10 @@ while True:
         move_stop()
     
     # Left hand square
-    input.on_button_pressed(Button.A, left_square)
+    input.on_button_pressed(Button.B, left_square)
 
     # Right hand square
-    input.on_button_pressed(Button.B, right_square)
+    input.on_button_pressed(Button.A, right_square)
 
 
 
