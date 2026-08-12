@@ -37,10 +37,25 @@ def timed_back(spd=50, sec=2.5):
     move_stop()
     return()
 
+def left_square(sec=3):
+    for i in range(4):
+        timed_forward()
+        turn_left(sec)
+    move_stop()
+    return()
+
+def right_square(sec=3):
+    for i in range(4):
+        timed_forward()
+        turn_right(sec)
+    move_stop()
+    return()
+
 # Initialise communication between Microbit and XGO
 xgo.init_xgo_serial(SerialPin.P14, SerialPin.P13)
 start = 0
 ready = ""
+squ_start = 0
 
 while True:
     # Show when ready
@@ -59,7 +74,15 @@ while True:
         for test in (16, 50, 90): 
             timed_forward(test)
             timed_back(test)
-        turn_left(5)
-        turn_right(5)
+        turn_left(4)
+        turn_right(4)
         move_stop()
     
+    # Left hand square
+    input.on_button_pressed(Button.A, left_square)
+
+    # Right hand square
+    input.on_button_pressed(Button.B, right_square)
+
+
+

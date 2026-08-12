@@ -50,6 +50,7 @@ function timed_back(spd: number = 50, sec: number = 2.5): any[] {
 xgo.init_xgo_serial(SerialPin.P14, SerialPin.P13)
 let start = 0
 let ready = ""
+let squ_start = 0
 while (true) {
     //  Show when ready
     ready = xgo.get_version()
@@ -73,9 +74,27 @@ while (true) {
             timed_forward(test)
             timed_back(test)
         }
-        turn_left(5)
-        turn_right(5)
+        turn_left(4)
+        turn_right(4)
         move_stop()
     }
     
+    //  Left hand square
+    input.onButtonPressed(Button.A, function left_square(sec: number = 3): any[] {
+        for (let i = 0; i < 4; i++) {
+            timed_forward()
+            turn_left(sec)
+        }
+        move_stop()
+        return []
+    })
+    //  Right hand square
+    input.onButtonPressed(Button.B, function right_square(sec: number = 3): any[] {
+        for (let i = 0; i < 4; i++) {
+            timed_forward()
+            turn_right(sec)
+        }
+        move_stop()
+        return []
+    })
 }
